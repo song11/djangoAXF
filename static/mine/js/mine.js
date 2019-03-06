@@ -1,0 +1,3 @@
+$(function () {
+    $('.mine').width(innerWidth)
+})
