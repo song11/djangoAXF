@@ -8,7 +8,7 @@
 footer .market span {
     background-image: url(/static/base/img/market1.png);
 }
-footer .market dd {
+footer .market .name {
     color: #ffd601;
 }
 
@@ -17,9 +17,9 @@ footer .market dd {
     width: 4rem;
     height: 100%;
     background: #fafafa;
-    overflow: hidden;
+    /*overflow: hidden;*/
     font-size: 0.8rem;
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: absolute;
     z-index: 9;
 }
@@ -201,5 +201,3 @@ footer .market dd {
     margin-top: 0.2rem;
     margin-left: 0.2rem;
 }
-
-

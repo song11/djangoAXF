@@ -63,6 +63,7 @@ footer .home dd {
 /* 关键是swiper的设置，slidesPerView个数*/
 #mustbuySwiper img{
     width:100%;
+
 }
 
 /* 商品部分*/
@@ -136,6 +137,7 @@ footer .home dd {
     line-height: 3rem;
     text-align: center;
     position: relative;
+    font-size:1rem;
 }
 .main .main-wrapper .title a{
     position: absolute;
@@ -215,5 +217,11 @@ footer .home dd {
     bottom: -0.5rem;
 }
 .main .main-wrapper .shoplist .shopitem button span{
+    font-size: 1rem;
+    display: inline-block;
 
+    /* 16px = 1rem */
+    /* 10px >>> */
+    /*height:0.625rem;*/
+    line-height: 1rem;
 }

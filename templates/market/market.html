@@ -6,13 +6,43 @@
 {% endblock %}
 
 {% block extcss %}
-    <link rel="stylesheet" href="{% static 'market/css/market.css' %}">
+
+   <link rel="stylesheet" href="{% static 'market/css/market.css' %}">
 {% endblock %}
 
 {% block extjs %}
-    <link rel="stylesheet" href="{% static 'market/js/market.js' %}">
+    <script src="{% static 'market/js/market.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-    闪购超市
+    <div class="market">
+        <div class="type-slider">
+            <ul>
+                {% for foodtype in foodtypes %}
+                    <li>
+                        <span></span>
+                        <a href="#">
+                            {% if forloop.counter == foodtype.typesort %}
+                                {{ foodtype.typename }}
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <nav>
+            <ul>
+                <li> <span>
+                    全部类型 <i class="glyphicon glyphicon-chevron-up"></i>
+                </span></li>
+                <li> <span>
+                    综合排序 <i class="glyphicon glyphicon-chevron-up"></i>
+                </span></li>
+            </ul>
+
+        </nav>
+{#      主体内容#}
+        <div class="main-content"></div>
+
+    </div>
 {% endblock %}
