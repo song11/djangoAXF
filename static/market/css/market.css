@@ -32,6 +32,7 @@ footer .market .name {
     width:100%;
     line-height: 2.4rem;
     position: relative;
+    background: #fafafa;
 }
 .market .type-slider ul li span{
     background: #ffd601;
@@ -57,7 +58,7 @@ footer .market .name {
     line-height: 2rem;
     text-align: center;
     background: #fafafa;
-    /*border-left: 1px solid #e0e0e0;*/
+    border-left: 1px solid #e0e0e0;
     position: relative;
     z-index: +1;
 }
@@ -90,7 +91,7 @@ footer .market .name {
 .market .main-content .content-wrapper{
     width: 100%;
     height: 100%;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
 }
 .market .main-content .content-wrapper ul{
 
@@ -187,7 +188,7 @@ footer .market .name {
     position: absolute;
     right: 0;
     bottom: 0;
-    display: none;
+    display: block;
 }
 .market .main-content .bounce-view .bounce-wrapper{
     background: white;

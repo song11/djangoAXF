@@ -29,12 +29,15 @@ footer .mine dd {
 .mine .user-wrapper .user-content{
     width: 75%;
     height: 100%;
+    font-size: 1rem;
 }
 .mine .user-wrapper .user-content p{
     line-height: 2rem;
+
 }
 .mine .user-wrapper .user-content span{
     padding-right: 0.4rem;
+
 }
 .mine .user-wrapper .user-content .register{
     position: absolute;
@@ -50,6 +53,8 @@ footer .mine dd {
     line-height: 2rem;
     background: #f0e000;
     text-align: center;
+    font-size: 1rem;
+    /*padding-top: 0.25rem;*/
 }
 .mine .collect span,
 .mine .collect .glyphicon{
