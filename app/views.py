@@ -3,10 +3,11 @@ import random
 import time
 
 from django.core.cache import cache
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from app.models import Wheel, Nav, Mustbuy, Shop, MainShow, Foodtypes, Goods, User
+from app.models import Wheel, Nav, Mustbuy, Shop, MainShow, Foodtypes, Goods, User, Cart
 
 
 def home(request):
@@ -59,7 +60,8 @@ def market(request,childid='0',sortid='0'):
     if childid == '0':
         goods_list = Goods.objects.filter(categoryid=categoryid)
     else:
-        goods_list = Goods.objects.filter(categoryid=categoryid).filter(childid=childid)
+        goods_list = Goods.objects.filter(categoryid=categoryid).filter(childcid=childid)
+
 
     #排序
     if sortid == '1':
@@ -107,6 +109,37 @@ def mine(request):
 
 
 def login(request):
+    if request.method == 'GET':
+        return render(request,'mine/login.html')
+    elif request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        #重定向
+        back = request.COOKIES.get('back')
+
+        users = User.objects.filter(email=email)
+        if users.exists():
+            user = users.first()
+            if user.password == generate_password(password):
+                token = generate_token()
+                cache.set(token,user.id,60*60*24*3)
+                #传递给客户端
+                request.session['token'] = token
+                if back == 'mine':
+                    return redirect('axf:mine')
+                else:
+                    return redirect('axf:marketbase')
+            else:
+                return render(request,'mine/login.html',context={'ps_err':'密码错误'})
+
+        else:
+            return render(request,'mine/login.html',context={'user_err':'用户名不存在'})
+
+
+
+
+
     return render(request,'mine/login.html')
 
 
@@ -129,9 +162,11 @@ def generate_token():
 
 
 def register(request):
+    print('进入1')
     if request.method == 'GET':
         return render(request,'mine/register.html')
     elif request.method == 'POST':
+        print('进入2')
         email = request.POST.get('email')
         name = request.POST.get('name')
         password = generate_password(request.POST.get('password'))
@@ -146,5 +181,57 @@ def register(request):
         token = generate_token()
         cache.set(token,user.id,60*60*24*3)
         request.session['token'] = token
+        print('进入3')
+        return redirect('axf:mine')
 
-    return redirect('axf:mine')
+
+def checkemail(request):
+    email = request.GET.get('email')
+    users = User.objects.filter(email=email)
+    if users.exists():
+        response_data = {
+            'status':0,
+            'msg':'帐号被占用'
+        }
+    else:
+        response_data = {
+            'status':1,
+            'msg':'帐号可用'
+        }
+
+    return JsonResponse(response_data)
+
+
+def addcart(request):
+    token = request.session.get('token')
+
+    response_data = {}
+
+    if token:
+        userid = cache.get(token)
+
+        if userid:
+            user = User.objects.get(pk=userid)
+            goodsid = request.GET.get('goodsid')
+            goods = Goods.objects.get(pk=goodsid)
+            # 判断需要添加的商品是否已经存在
+            carts = Cart.objects.filter(user=user).filter(goods=goods)
+
+            if carts.exists():
+                cart = carts.first()
+                cart.number += 1
+                cart.save()
+            else:
+                cart = Cart()
+                cart.user = user
+                cart.goods = goods
+                cart.number = 1
+                cart.save()
+            response_data['status'] = 1
+            response_data['msg'] = '添加{}购物车成功:{}'.format(cart.goods.productlongname,cart.number)
+
+            return JsonResponse(response_data)
+
+    response_data['status'] = -1
+    response_data['msg'] = '请登录后操作'
+    return JsonResponse(response_data)

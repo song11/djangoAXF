@@ -80,7 +80,7 @@ footer .market .name {
 /* 主体商品列表*/
 .market .main-content{
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
     padding-left: 4rem;
     padding-top: 2rem;
     position: absolute;
@@ -172,6 +172,7 @@ footer .market .name {
     color: white;
     border-radius: 50%;
     padding: 0.1rem;
+
 }
 .market .main-content .content-wrapper ul li .bt-wrapper .num{
     margin: 0.2rem;
@@ -188,7 +189,7 @@ footer .market .name {
     position: absolute;
     right: 0;
     bottom: 0;
-    display: block;
+    display: none;
 }
 .market .main-content .bounce-view .bounce-wrapper{
     background: white;

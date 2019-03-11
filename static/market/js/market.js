@@ -25,7 +25,7 @@ $(function () {
     var categoryShow = false
     $('#category-bt').click(function () {
         categoryShow = !categoryShow
-        categoryShow?categoryShow():categoryHide()
+        categoryShow?categoryViewShow():categoryViewHide()
     })
 
     function categoryViewShow(){
@@ -62,12 +62,31 @@ $(function () {
     }
 
     //灰色蒙层
-    $('.bounce-view').click(function () {
-        sortViewHide()
-        sortShow= false
+    // $('.bounce-view').click(function () {
+    //     sortViewHide()
+    //     sortShow= false
+    //
+    //     categoryViewHide()
+    //     categoryShow = false
+    //
+    // })
 
-        categoryViewHide()
-        categoryShow = false
+    //+-隐藏
+    $('.bt-wrapper>.glyphicon-minus').hide()
+    $('.bt-wrapper>b').hide()
 
+    //点击操作
+    $('.bt-wrapper>.glyphicon-plus').click(function () {
+        request_data = {
+            'goodsid':$(this).attr('data-goodsid')
+
+        }
+        $.get('/axf/addcart/',request_data,function (response) {
+
+            if (response.status == -1){
+                $.cookie('back','market',{expires:3,path: '/'})
+                window.open('/axf/login/','_self')
+            }
+        })
     })
 })
