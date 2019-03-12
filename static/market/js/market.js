@@ -75,18 +75,46 @@ $(function () {
     $('.bt-wrapper>.glyphicon-minus').hide()
     $('.bt-wrapper>b').hide()
 
-    //点击操作
+    //点击加操作
     $('.bt-wrapper>.glyphicon-plus').click(function () {
         request_data = {
             'goodsid':$(this).attr('data-goodsid')
-
         }
-        $.get('/axf/addcart/',request_data,function (response) {
+        var $that = $(this)
 
+        console.log(request_data)
+        $.get('/axf/addcart/',request_data,function (response) {
+            console.log(response)
             if (response.status == -1){
                 $.cookie('back','market',{expires:3,path: '/'})
                 window.open('/axf/login/','_self')
             }
+            else if(response.status ==1) {
+                $that.prev().html(response.number)
+                $that.prev().show()
+                $that.prev().prev().show()
+            }
         })
     })
+
+    //点击减操作
+    $('.bt-wrapper>.glyphicon-minus').click(function () {
+        var $that = $(this)
+        request_data = {
+            'goodsid':$(this).attr('data-goodsid')
+        }
+        $.get('/axf/subcart/',request_data,function (response) {
+            console.log(response)
+            if (response.status == 1) {
+                if (response.number){
+                    $that.next().html(response.number)
+                }
+                else {
+                    $that.next().hide()
+                    $that.hide()
+                }
+            }
+        })
+    })
+
 })

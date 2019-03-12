@@ -1,0 +1,10 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="no-login">
+        <a href="{% url 'axf:login' %}">
+            请登录后操作
+        </a>
+
+    </div>
+{% endblock %}

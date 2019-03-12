@@ -81,7 +81,7 @@ $(function () {
 
     //注册按钮
     $('#subButton').click(function () {
-        console.log('注册')
+
         var isregister = true
         $('.register .form-group').each(function () {
             if(!$(this).is('.has-success')){
@@ -89,7 +89,8 @@ $(function () {
             }
         })
         if (isregister){
-            $('.register form').submit
+            $('.register form').submit()
+            console.log('注册')
         }
     })
 

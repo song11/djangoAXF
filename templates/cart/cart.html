@@ -10,9 +10,56 @@
 {% endblock %}
 
 {% block extjs %}
-    <link rel="stylesheet" href="{% static 'cart/js/cart.js' %}">
+    <script src="{% static 'cart/js/cart.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-    购物车
+    <div class="cart">
+        <ul>
+            {% for cart in carts %}
+                <li>
+                    <div class="confirm-wrapper" data-cardid="{{ cart.id }}">
+                        {% if cart.isselect %}
+                            <span class="glyphicon glyphicon-ok"></span>
+                        {% else %}
+                            <span class="no"></span>
+                        {% endif %}
+                    </div>
+                    <div class="content-wrapper">
+                        <div class="img">
+                            <img src="{{ cart.goods.productimg }}" alt="">
+                        </div>
+                        <div class="detail">
+                            <p class="name">{{ cart.goods.productlongname }}</p>
+                            <p class="price" data-price="{{ cart.goods.price }}">￥{{ cart.goods.price }}</p>
+                            <p class="num" data-number="{{ cart.number }}">x{{ cart.number }}</p>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="bill">
+            <div class="bill-left">
+                <div class="all" data-all="{{ isall | lower }}">
+                    {% if isall %}
+                        <span class="glyphicon glyphicon-ok"></span>
+                    {% else %}
+                        <span class="no"></span>
+                    {% endif %}
+                    <b>全选</b>
+                </div>
+
+
+                <div class="total">
+                    <span>￥</span>
+                    <b>11192</b>
+                </div>
+            </div>
+            <div class="bill-right" id="order">
+            <a href="{% url 'axf:generateorder' %}">
+                下单
+            </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -40,23 +40,29 @@
         <div class="other">
             <section class="my">
                 <span>我的订单</span>
-            <a href="">查看全部订单 <b class="glyphicon glyphicon-chevron-right"></b></a>
+            <a href="{% url 'axf:orderlist' %}">查看全部订单 <b class="glyphicon glyphicon-chevron-right"></b></a>
             </section>
 
             <section>
                 <ul>
                     <li>
                         <a href="">
-                            <dl>
-                                <dt><span class="glyphicon glyphicon-yen"></span></dt>
+                            <dl class="item">
+                                <dt >
+                                    <span class="glyphicon glyphicon-yen"></span>
+                                    <span class="badge">{{ waitpay }}</span>
+                                </dt>
                                 <dd>待付款</dd>
                             </dl>
                         </a>
                     </li>
                     <li>
                         <a href="">
-                            <dl>
-                                <dt><span class="glyphicon glyphicon-envelope"></span></dt>
+                            <dl >
+                                <dt class="item">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                    <span class="badge">{{ paydone }}</span>
+                                </dt>
                                 <dd>待收货</dd>
                             </dl>
                         </a>

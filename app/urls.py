@@ -14,7 +14,14 @@ urlpatterns = [
     url(r'^login/$',views.login,name='login'),
     url(r'^logout/$',views.logout,name='logout'),
     url(r'^register/$',views.register,name='register'),
-    url(r'checkemail/$',views.checkemail,name='checkemail'),
+    url(r'^checkemail/$',views.checkemail,name='checkemail'),
 
     url(r'^addcart/$',views.addcart,name='addcart'),
+    url(r'^subcart/$',views.subcart,name='subcart'),
+    url(r'^changecartselect/$',views.changecartselect,name='changecartselect'),
+
+    url(r'^changecartall/$',views.changecartall,name='changecartall'),   #全选/取消全选
+    url(r'^generateorder/$',views.generateorder,name='generateorder'),
+    url(r'^orderlist/$',views.orderlist,name='orderlist'),
+    url(r'^orderdetail/(?P<identifier>[\d.]+)/$',views.orderdetail,name='orderdetail'),
 ]
